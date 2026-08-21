@@ -1,0 +1,14 @@
+{
+  "gpt-4.1": {
+    "api_key": "YOUR_AZURE_OPENAI_API_KEY",
+    "azure_endpoint": "https://YOUR_RESOURCE.openai.azure.com/",
+    "api_version": "2024-12-01-preview",
+    "deployment_name": "gpt-4.1"
+  },
+  "gpt-5": {
+    "api_key": "YOUR_AZURE_OPENAI_API_KEY",
+    "azure_endpoint": "https://YOUR_RESOURCE.openai.azure.com/",
+    "api_version": "2024-12-01-preview",
+    "deployment_name": "gpt-5"
+  }
+}

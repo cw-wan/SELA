@@ -1,0 +1,76 @@
+# Pressure Test — Time Series Event Specification
+
+This document describes the events in a pressure test task. Each event is defined by its channel morphologies, temporal phases, and the conditions that distinguish it from other events.
+
+**Channels available:** `[volume, pressure]`
+
+**IMPORTANT**: Each sample should contain only one event: either valid test or lost seal.
+
+---
+
+## 1. Valid Test
+
+**Channels:** `[volume, pressure]`
+
+### Pre-Phase (Context)
+**Volume Channel:** Strictly steady (holding).
+**Pressure Channel:** Strictly steady at the test target level.
+
+### Main-Phase (Event Morphologies)
+This phase is defined by the strict temporal sequence of two sub-patterns: **Drawdown** followed immediately by **Buildup**.
+
+> **Sub-Pattern 1 — Drawdown**
+> >> **Volume Channel:** Linear increase (consistent positive slope).
+> >> **Pressure Channel:** Drops, with the rate of change decreasing toward zero (i.e., a decelerating drop). May optionally settle into a brief steady stage at the end.
+
+> **Sub-Pattern 2 — Buildup**
+> >> **Volume Channel:** Strictly steady (slope ≈ 0) at the same level reached at the end of Drawdown.
+> >> **Pressure Channel:** Slight increase (recovery). The rate of increase decelerates (2nd derivative < 0), then pressure transitions into a strictly steady stage (slope ≈ 0).
+
+*Note:* The transition between Drawdown and Buildup must be **seamless** (no temporal gap).
+
+### Post-Phase (Termination)
+The event ends when **either** of the following occurs:
+- **Pressure Channel:** Increases abruptly.
+- **Volume Channel:** Changes (either increase or drop).
+
+---
+
+## 2. Lost Seal
+
+**Channels:** `[volume, pressure]`
+
+### Pre-Phase (Context)
+**Volume Channel:** Strictly steady (holding).
+**Pressure Channel:** Strictly steady at the test target level.
+
+### Main-Phase (Event Morphologies)
+The Volume Channel follows a fixed morphology, while the Pressure Channel exhibits **one of two possible morphologies**.
+
+> **Volume Channel (fixed morphology):**
+> >> Linear increase, then transitions into strictly steady (slope ≈ 0).
+
+> **Pressure Channel — Possibility A: Spiky Decay then Steady**
+> >> Exhibits significant **downward spikes** — pressure drops abruptly but quickly recovers to **the same level**.
+> >> Followed by strictly steady behavior (holding).
+
+> **Pressure Channel — Possibility B: Slow Linear Decline**
+> >> Exhibits a steady, **slightly linear decrease** with a small consistent negative slope.
+> >> Possible small oscillations around the trend.
+
+### Post-Phase (Termination)
+The event ends when **either** of the following occurs on the Volume Channel:
+- **Volume Channel:** Drops abruptly, **or**
+- **Volume Channel:** Transitions into linear increase.
+
+---
+
+## Differentiation Notes
+
+The two events share an identical Pre-Phase, but differ in their Main-Phase morphologies:
+
+| Aspect | Valid Test | Lost Seal |
+|---|---|---|
+| Volume during pressure stabilization | Steady at elevated level (Buildup) | Steady at elevated level — but only after a longer/larger linear increase |
+| Pressure recovery behavior | **Slight increase** (recovery) decelerating to steady | **No recovery** — either spiky decay back to same level, or slow linear decline |
+| Key signature | Pressure rebounds slightly | Pressure either drops in spikes or slowly bleeds down |

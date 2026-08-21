@@ -1,0 +1,95 @@
+NOTE: every sample in this dataset carries the same 7-channel array regardless
+of class — [VIS_km, TD_SPREAD, TEMP_C, DEWP_C, WND_KT, WIND_CHILL, SLP_hPa] —
+so the class can never be inferred from which channels are present. Each class
+entry below only narrates the subset of those 7 channels that is physically
+diagnostic for that hazard; the remaining channels are still present in the
+data but simply uninformative (e.g. near-zero) for that class.
+
+NOTE: WIND_CHILL doubles as the heat-index channel. Wind chill and heat index
+are both "feels-like temperature" derived from the same TEMP_C/DEWP_C/WND_KT
+inputs, and their domains of validity never overlap (wind chill only defined
+when TEMP_C ≤ 10 °C, heat index only defined when TEMP_C ≥ 26.7 °C) — so one
+shared column unambiguously carries the cold-side value in cold events, the
+hot-side value in hot events, and 0.0 in the mild band between where neither
+applies.
+
+### 1. Dense Fog (dense_fog)
+Channels: [VIS_km, TD_SPREAD, TEMP_C, DEWP_C, WND_KT]
+
+Dense fog occurs when suspended water droplets reduce surface visibility to 
+≤ 0.40 km. It forms when air temperature and dewpoint 
+converge to near-identical values.
+
+NOTE: All channels exhibit measurement noise and physical oscillations. Evaluate 
+the dominant sustained pattern, not individual outlier readings. Transient 
+deviations of 1–2 hours should not alter event boundaries.
+
+>> Event criteria (definitional):
+
+   VIS_km: Drops abruptly from ambient (≥ 5 km) to ≤ 0.40 km, then sustains 
+   a near-zero floor (0.05–0.20 km). Brief spikes above threshold (≤ 1.0 km, 
+   1–2 readings) are noise — do not treat as event termination.
+
+   TD_SPREAD: Collapses from baseline (3–8 °C) to near zero (0–1 °C) and 
+   remains pinched. Minor oscillations (±0.5 °C) are expected within this 
+   saturated regime.
+
+   TEMP_C / DEWP_C: Converge to within ≤ 1 °C and track in near-parallel 
+   throughout. Brief crossings or ±0.5 °C fluctuations are normal sensor 
+   rounding, not event boundaries.
+
+### 2. Extreme Cold / Wind Chill (extreme_cold_wind_chill)
+Channels: [TEMP_C, WIND_CHILL, SLP_hPa]
+
+Extreme Cold/Wind Chill is defined as a period of extremely low temperatures or wind
+chill values reaching warning criteria: TEMP_C ≤ −18 °C OR WIND_CHILL ≤ −28 °C (NWS
+Instruction 10-1605). Either condition alone is sufficient — cold is dangerous with or
+without elevated wind. WIND_CHILL is a derived quantity computed from TEMP_C and wind
+speed; it is only defined when TEMP_C ≤ 10 °C and wind speed ≥ ~4.8 km/h, otherwise
+it is None (filled as 0.0 in the timeseries).
+
+NOTE: All channels exhibit measurement noise and diurnal oscillations. Evaluate the
+dominant sustained pattern. Transient recoveries of 1–2 hours should not alter event
+boundaries.
+
+>> Event criteria (definitional):
+
+   TEMP_C: Drops sharply from pre-event baseline and sustains extreme lows (≤ −18 °C).
+   Shape: rapid descent marking Arctic air-mass arrival, then sustained cold plateau.
+   Diurnal oscillations (±2 °C) are noise — assess the dominant sustained level, not
+   individual outlier readings.
+
+   WIND_CHILL: Diverges below TEMP_C when wind is elevated, sustaining ≤ −28 °C
+   throughout. When wind is calm, WIND_CHILL ≈ TEMP_C at extreme lows. Minor
+   oscillations tracking wind fluctuations are expected and do not indicate event
+   termination. TEMP_C or WIND_CHILL meeting threshold is sufficient (OR logic);
+   both need not be present simultaneously.
+
+   SLP_hPa: Rises sharply as Arctic air arrives, sustaining elevated values (> 1020 hPa,
+   often 1030–1050+ hPa) throughout the event, then gradually declines as the system
+   exits. Shape: sharp rise → sustained high plateau → gradual post-event decline.
+   Short-term oscillations (±2 hPa) are normal.
+
+### 3. Frost/Freeze (frost_freeze)
+Channels: [TEMP_C, DEWP_C, TD_SPREAD, WND_KT]
+
+Frost/Freeze covers overnight radiational-cooling events: a Freeze Warning
+(temperature drops to or below freezing) or the milder Frost Advisory (near-
+freezing under clear skies and calm wind), typically during growing-season
+shoulder months (spring/fall) rather than the deep winter cold air masses of
+Extreme Cold/Wind Chill.
+
+>> Event criteria (definitional):
+
+   TEMP_C: Descends overnight to ≤ 2 °C. Shape is diurnal-radiational — steady
+   descent through the night, minimum near sunrise, recovery afterward — rather
+   than the abrupt arctic-airmass-arrival shape of Extreme Cold.
+
+   DEWP_C / TD_SPREAD: Efficient radiational cooling requires dry air, so
+   TD_SPREAD should stay wide (dry) rather than collapsing toward zero the way
+   Dense Fog's does; a spread that narrows to near-zero as TEMP_C nears DEWP_C
+   indicates fog/frost-point conditions rather than dry radiational cooling.
+
+   WND_KT: Stays low/calm throughout — wind mixing suppresses radiational
+   cooling, so a genuine Frost/Freeze night shows persistently light wind,
+   distinguishing it from wind-driven cold-air-advection events.
