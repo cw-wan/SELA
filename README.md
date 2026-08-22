@@ -43,6 +43,12 @@ pip install --no-deps momentfm chronos-forecasting
 
 Every run streams progress to `logs/<run>/…log` and writes `results.json`.
 
+## Metrics
+
+`sela/eval/metrics.py`. Detection F1 at IoU 0.5 and 0.9, micro (pooled events) and macro (equal weight per class). Coverage F-scores are also reported:
+`cov_f1` and `cov_f05`. Coverage F-scores are built from range recall (overlap / |gt|) and range precision (overlap / |pred|); the `05` in `cov_f05` is
+β = 0.5, i.e. precision-weighted. They are the informative pair on datasets whose event boundaries are gradual.
+
 ## SELA
 
 ```bash
@@ -53,22 +59,6 @@ python scripts/evaluate_sela.py --model gpt-5 --dataset <NAME> --concurrency 5 \
 # GPT-4.1
 python scripts/evaluate_sela.py --model gpt-4.1 --dataset <NAME> --concurrency 8 \
     --numeric-readout --numeric-max-rows 40 --resample-mode envelope
-```
-
-## VLM baselines
-
-```bash
-python scripts/evaluate_baseline.py --baseline numeric --model gpt-5   --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
-python scripts/evaluate_baseline.py --baseline visual  --model gpt-5   --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
-python scripts/evaluate_baseline.py --baseline numeric --model gpt-4.1 --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
-python scripts/evaluate_baseline.py --baseline visual  --model gpt-4.1 --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
-```
-
-Few-shot — add `--few-shot` to any of the above. One random example per class is drawn per query, the query
-itself excluded, resampled every run:
-
-```bash
-python scripts/evaluate_baseline.py --baseline visual --model gpt-5 --dataset <NAME> --repeats 3 --seed 44 --few-shot --concurrency 6
 ```
 
 ## Supervised models
@@ -88,11 +78,24 @@ python scripts/train_supervised.py --model timer   --dataset <NAME> --folds 5 --
 python scripts/train_supervised.py --model timesfm --dataset <NAME> --folds 5 --epochs 30 --head-mode bbox --num-queries <K>
 ```
 
-## Metrics
+## VLM baselines
 
-`sela/eval/metrics.py`. Detection F1 at IoU 0.5 and 0.9, micro (pooled events) and macro (equal weight per class). Coverage F-scores are also reported:
-`cov_f1` and `cov_f05`. Coverage F-scores are built from range recall (overlap / |gt|) and range precision (overlap / |pred|); the `05` in `cov_f05` is
-β = 0.5, i.e. precision-weighted. They are the informative pair on datasets whose event boundaries are gradual.
+```bash
+# Numeric
+python scripts/evaluate_baseline.py --baseline numeric --model gpt-5   --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
+python scripts/evaluate_baseline.py --baseline numeric --model gpt-4.1 --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
+
+# VL-Time
+python scripts/evaluate_baseline.py --baseline visual  --model gpt-5   --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
+python scripts/evaluate_baseline.py --baseline visual  --model gpt-4.1 --dataset <NAME> --repeats 3 --seed 44 --concurrency 12
+```
+
+Few-shot — add `--few-shot` to any of the above. One random example per class is drawn per query, the query
+itself excluded, resampled every run:
+
+```bash
+python scripts/evaluate_baseline.py --baseline visual --model gpt-5 --dataset <NAME> --repeats 3 --seed 44 --few-shot --concurrency 6
+```
 
 ## Citation
 
