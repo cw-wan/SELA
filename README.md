@@ -71,7 +71,7 @@ itself excluded, resampled every run:
 python scripts/evaluate_baseline.py --baseline visual --model gpt-5 --dataset <NAME> --repeats 3 --seed 44 --few-shot --concurrency 6
 ```
 
-## Supervised baselines
+## Supervised models
 
 Repeated 5-fold Cross Validation: run each command with `--seed 42`, `--seed 43`, `--seed 44`
 and aggregate across the three seeds.
@@ -90,8 +90,8 @@ python scripts/train_supervised.py --model timesfm --dataset <NAME> --folds 5 --
 
 ## Metrics
 
-`sela/eval/metrics.py`. Detection F1 at IoU 0.5 and 0.9, micro (pooled events) and macro (equal weight per class). Coverage F-scores are also reported —
-`cov_f1` and `cov_f05` — built from range recall (overlap / |gt|) and range precision (overlap / |pred|) with no IoU threshold; the `05` in `cov_f05` is
+`sela/eval/metrics.py`. Detection F1 at IoU 0.5 and 0.9, micro (pooled events) and macro (equal weight per class). Coverage F-scores are also reported:
+`cov_f1` and `cov_f05`. Coverage F-scores are built from range recall (overlap / |gt|) and range precision (overlap / |pred|) with no IoU threshold; the `05` in `cov_f05` is
 β = 0.5, i.e. precision-weighted. They are the informative pair on datasets whose event boundaries are gradual.
 
 ## Citation
