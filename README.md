@@ -12,6 +12,12 @@
   >
 </p>
 
+<p align="center">  
+    <a href="https://arxiv.org/pdf/2603.11479">Paper</a>
+    ·
+    <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Poster.pdf">Poster*</a>
+</p>
+
 
 ## KITE Datasets
 
