@@ -1,8 +1,8 @@
 <h1 align="center"><i>Grammar of the Wave</i></h1>
 
-<h2 align="center">
+<h3 align="center">
   Towards Explainable Multivariate Time Series Event Detection via Neuro-Symbolic VLM Agents
-</h2>
+</h3>
 
 <p align="center">
   <img
