@@ -13,6 +13,7 @@
 </p>
 
 <p align="center">
+<p align="center">
     <a href="https://arxiv.org/pdf/2603.11479">Paper</a>
     ·
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Slides.pdf">Slides*</a>
@@ -20,7 +21,7 @@
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Poster.pdf">Poster</a>
 </p>
 <span style="font-size: 60%;">* <i>Oral presentation at <a href="https://sites.google.com/view/paris-nlp-pre-conf-oct-2026/">Paris NLP Pre-Conference 2026 Oct Edition</a>.</i></span>
-<br>
+</p>
 
 <p align="center">
   <img
