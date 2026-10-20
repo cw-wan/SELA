@@ -18,7 +18,15 @@
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Slides.pdf">Slides*</a>
     ·
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Poster.pdf">Poster</a>
-  <span style="font-size: 60%;">* <i>Oral presentation at <a href="https://sites.google.com/view/paris-nlp-pre-conf-oct-2026/">Paris NLP Pre-Conference 2026 Oct Edition</a>.</i></span>
+</p>
+<span style="font-size: 60%;">* <i>Oral presentation at <a href="https://sites.google.com/view/paris-nlp-pre-conf-oct-2026/">Paris NLP Pre-Conference 2026 Oct Edition</a>.</i></span>
+
+<p align="center">
+  <img
+    src="img/sela_inspector_valid_test.gif"
+    alt="SELA Inspector - Valid Test Event Detection"
+    width="900"
+  >
 </p>
 
 <p align="center">
