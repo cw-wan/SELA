@@ -20,7 +20,7 @@
     ·
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Poster.pdf">Poster</a>
 </p>
-<span style="font-size: 60%;">* <i>Oral presentation at <a href="https://sites.google.com/view/paris-nlp-pre-conf-oct-2026/">Paris NLP Pre-Conference 2026 Oct Edition</a>.</i></span>
+<span style="font-size: 60%;">* <i>Oral presentation at <a href="https://sites.google.com/view/paris-nlp-pre-conf-oct-2026/">Paris NLP Pre-Conference 2026 Oct Edition</a>, <a href="https://www.inria.fr/fr/centre-inria-de-paris">Inria Paris</a>.</i></span>
 </p>
 
 <p align="center">
