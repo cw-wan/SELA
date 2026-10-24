@@ -14,7 +14,7 @@
 
 <p align="center">
 <p align="center">
-    <a href="https://arxiv.org/pdf/2603.11479">Paper</a>
+    <a href="https://aclanthology.org/2026.emnlp-main.290/">Paper</a>
     ·
     <a href="https://github.com/cw-wan/SELA/blob/main/SELA_EMNLP26_Slides.pdf">Slides*</a>
     ·
