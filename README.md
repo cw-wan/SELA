@@ -125,13 +125,24 @@ python scripts/evaluate_baseline.py --baseline visual --model gpt-5 --dataset <N
 If you find our work useful, please cite our paper:
 
 ```bibtex
-@misc{wan-etal-2026-sela,
-    title={Grammar of the Wave: Towards Explainable Multivariate Time Series Event Detection via Neuro-Symbolic VLM Agents}, 
-    author={Sky Chenwei Wan and Yifei Y. Wang and Tianjun Hou and Xiqing Chang and Aymeric Jan},
-    year={2026},
-    eprint={2603.11479},
-    archivePrefix={arXiv},
-    primaryClass={cs.LG},
-    url={https://arxiv.org/abs/2603.11479}, 
+@inproceedings{wan-etal-2026-grammar,
+    title = "Grammar of the Wave: Towards Explainable Multivariate Time Series Event Detection via Neuro-Symbolic {VLM} Agents",
+    author = "Wan, Sky Chenwei  and
+      Wang, Yifei  and
+      Hou, Tianjun  and
+      Chang, Xiqing  and
+      Jan, Aymeric",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.290/",
+    pages = "6638--6656",
+    ISBN = "979-8-89176-459-0"
 }
 ```
