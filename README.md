@@ -142,6 +142,7 @@ If you find our work useful, please cite our paper:
     address = "Budapest, Hungary",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2026.emnlp-main.290/",
+    doi = "10.18653/2026.emnlp-main.290",
     pages = "6638--6656",
     ISBN = "979-8-89176-459-0"
 }
